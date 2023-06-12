@@ -1,0 +1,28 @@
+.form-control {
+
+	width:20rem;
+}
+
+.custom-container {
+	display:flex;
+	justify-content:center;
+	align-items:center;
+  	flex-wrap: wrap;
+}
+
+
+.custom-input {
+	border:1px solid blue;
+}
+
+.custom-header {
+
+	font-size:3rem;
+	color:red;
+	font-family:Gill Sans;
+	text-shadow:10px 10px 30px wheat;
+}
+
+.custom-msg {
+	color:green;
+}

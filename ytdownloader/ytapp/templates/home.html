@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class='custom-container mt-5'>
+<form action='{% url "homepage" %}' method='POST'>
+{% csrf_token %}
+<input class='form-control custom-input'  type='url' name='ytlink' placeholder='paste Youtube link here....'>
+<input type='submit' class='btn-success custom-btn' value='Fetch' onclick="show()">
+</form>
+</div>
+
+<div class="custom-container mt-3" >
+<img style='height:20vmin;width:30vmin;' src='{{thumb}}' alt='@CodeShark'>
+</div>
+
+<div class="custom-container mt-3" >
+{% if messages %}
+
+{% for message in messages %}
+<div >
+<a  id='bts' type='button'  style='text-decoration:none;' class="btn-primary mt-3 " >Download Video </a>
+ <span>&nbsp;</span>
+<a  id='bts_aud' type='button'  style='text-decoration:none;' class="btn-warning mt-3" >Download Audio</a>
+</div>
+{% endfor %}
+
+{% endif %}
+<h3 id='msg' class='text-warning mt-3' >{{err_msg}}</h3>
+</div>
+
+<script>
+var msg=document.getElementById('msg')
+function show() {
+msg.innerHTML='Fetching Please Wait'
+
+}
+
+const downloadButton = document.getElementById('bts');
+const downloadButton_aud = document.getElementById('bts_aud');
+
+downloadButton.addEventListener('click', () => {
+ downloadButton.remove()
+ msg.innerHTML='Downloading Video Please Wait'
+  const videoUrl = '{% static "media/"|add:df_name %}';
+  
+      // Create a temporary anchor element to trigger the download
+      const link = document.createElement('a');
+      link.href=videoUrl;
+      link.setAttribute('download','{{df_name}}')
+      link.click();
+      
+	msg.innerHTML='Video Submitted to You Say Thanks to Zabi'
+      
+      
+});
+
+
+downloadButton_aud.addEventListener('click', () => {
+ downloadButton_aud.remove()
+ msg.innerHTML='Downloading Audio Please Wait'
+  const audioUrl = '{% static "media/audio/"|add:df_name %}';
+  
+      // Create a temporary anchor element to trigger the download
+      const link = document.createElement('a');
+      link.href=audioUrl;
+      link.setAttribute('download','{{df_name}}')
+      link.click();
+      msg.innerHTML='Audio Submitted to You Say Thanks to Zabi'
+      
+});
+
+</script>
+{% endblock content %}
